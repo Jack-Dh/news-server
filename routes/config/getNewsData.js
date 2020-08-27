@@ -39,9 +39,6 @@ const getNewsDataTitle = () => {
                         $("#syncad_1 h1 a").each((index, element) => {
                             var $text = $(element).text();
                             let url = $(element).attr('href')
-                                // console.log($(element).attr('href'))
-                                // arr.push({ title: $text });
-
                             arr.push({ title: $text, url: url });
                         });
                         resolve(arr)
@@ -54,33 +51,47 @@ const getNewsDataTitle = () => {
     }
     //抓取文章内容
 const getNewsDataContent = (url) => {
-    return new Promise((resolve, reject) => {
-        superagent('GET', url, 'utf-8')
-            .end((err, sres) => { //页面获取到的数据
-                if (sres) {
-                    let html = sres.text,
-                        content,
-                        $ = cheerio.load(html, {
-                            decodeEntities: false
-                        }) //用cheerio解析页面数据
-                        // obj = {};
-                    $("#article p").each((index, element) => {
-                        var $text = $(element).text();
-                        content += $text
-                    });
-                    resolve(content)
-                } else {
-                    reject(err)
-                }
-            });
-    })
+        return new Promise((resolve, reject) => {
+            superagent('GET', url, 'utf-8')
+                .end((err, sres) => { //页面获取到的数据
+                    if (sres) {
+                        let html = sres.text,
+                            content,
+                            $ = cheerio.load(html, {
+                                decodeEntities: false
+                            }) //用cheerio解析页面数据
+                            // obj = {};
+                        $("#article p").each((index, element) => {
+                            var $text = $(element).text();
+                            content += $text
+                        });
+                        resolve(content)
+                    } else {
+                        reject(err)
+                    }
+                });
+        })
 
-}
+    }
+    // #region
+    /**
+     * @swagger
+     * /config/integration:
+     *   get:
+     *     description: 获取热点新闻
+     *     tags: [获取数据]
+     *     produces:
+     *       - application/x-www-form-urlencoded
+     *     responses:
+     *       200:
+     *         description: 获取成功
+     */
+    // #endregion
 router.get("/integration", async(ctx, next) => {
     try {
         let _ = await integration()
-        News_.insert(_)
-        ctx.body = { code: 200, msg: "获取成功" }
+        let _insert = await News_.insert(_)
+        ctx.body = { code: 200, msg: _insert }
     } catch (error) {
         throw Error(error)
     }

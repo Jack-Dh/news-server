@@ -20,6 +20,7 @@ export default class operation {
                     content: iterator.content,
                 })
             }
+            return "获取成功"
         } catch (error) {
             throw Error(error)
         }

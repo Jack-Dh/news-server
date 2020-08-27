@@ -14,7 +14,7 @@ const swaggerDefinition = {
 const options = {
     swaggerDefinition,
     // apis: ['./routes/*.js', './routes/image/*.js'] // routes下所有的js文件和routes/image下所有js文件
-    apis: ['./routes/*.js'], // 写有注解的router的存放地址
+    apis: ['./routes/*.js', './routes/*/*.js'], // 写有注解的router的存放地址
 };
 
 const swaggerSpec = swaggerJSDoc(options)
