@@ -44,16 +44,17 @@ router.get("/hot/newsTitle", async(ctx, next) => {
  *         type: string
  *     responses:
  *       200:
- *         description: code:200,data:[]
+ *         description: code:200<br/><br/>title：文章标题 <br/><br/>content：文章内容<br/><br/>imgUrls：文章图片
  */
 //查询文章内容
 router.get("/hot/newsContent/byId", async(ctx, next) => {
     try {
         if (ctx.query.id) {
             let _ = await news.queryContent(ctx.query.id)
+            console.log(_[0].imgUrl)
             return ctx.body = {
                 code: 200,
-                data: _.length > 0 ? _[0] : []
+                data: _.length > 0 ? { title: _[0].title, content: _[0].content, imgUrls: _[0].imgUrl.split(",") } : []
             }
         }
         return ctx.body = { code: 400, msg: "查询参数不能为空" }

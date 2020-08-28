@@ -12,7 +12,7 @@ const integration = async() => {
         let listData = []
         for (const item of title) {
             let content = await getNewsDataContent(item.url)
-            listData.push({ title: item.title, content: content })
+            listData.push({ title: item.title, content: content.content, imgUrl: content.imgUrl })
         }
         return listData
     } catch (error) {
@@ -57,6 +57,7 @@ const getNewsDataContent = (url) => {
                     if (sres) {
                         let html = sres.text,
                             content,
+                            imgUrl = [],
                             $ = cheerio.load(html, {
                                 decodeEntities: false
                             }) //用cheerio解析页面数据
@@ -65,7 +66,14 @@ const getNewsDataContent = (url) => {
                             var $text = $(element).text();
                             content += $text
                         });
-                        resolve(content)
+                        $(".img_wrapper img").each((index, element) => {
+                            var $text = $(element).attr('src');
+                            imgUrl.push($text)
+                            console.log($text)
+                        });
+                        // 
+                        console.log({ content: content, imgUrl: imgUrl })
+                        resolve({ content: content, imgUrl: imgUrl })
                     } else {
                         reject(err)
                     }

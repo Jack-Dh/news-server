@@ -18,7 +18,13 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.TEXT,
             allowNull: true,
             field: 'content'
-        }, // 创建时间
+        }, //内容
+        imgUrl: {
+            type: DataTypes.TEXT,
+            allowNull: true,
+            field: 'imgUrl'
+        },
+        // 创建时间
         createdAt: {
             type: DataTypes.DATE
         },

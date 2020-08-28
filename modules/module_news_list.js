@@ -10,7 +10,12 @@ export default class operation {
     static async insert(data) {
         try {
             for (const iterator of data) {
-                //文章标题
+                let imgUrl
+                iterator.imgUrl.forEach((item, index) => {
+                    index < iterator.imgUrl.length - 1 ? imgUrl += item + ',' : imgUrl += item
+                })
+                console.log(imgUrl)
+                    //文章标题
                 await NewsListTitle.create({
                         title: iterator.title,
                     })
@@ -18,6 +23,7 @@ export default class operation {
                 await NewsListContent.create({
                     title: iterator.title,
                     content: iterator.content,
+                    imgUrl: imgUrl
                 })
             }
             return "获取成功"
