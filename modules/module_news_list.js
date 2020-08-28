@@ -11,11 +11,12 @@ export default class operation {
         try {
             for (const iterator of data) {
                 let imgUrl
-                iterator.imgUrl.forEach((item, index) => {
-                    index < iterator.imgUrl.length - 1 ? imgUrl += item + ',' : imgUrl += item
-                })
-                console.log(imgUrl)
-                    //文章标题
+                if (iterator.imgUrl) {
+                    iterator.imgUrl.forEach((item, index) => {
+                        index < iterator.imgUrl.length - 1 ? imgUrl += item + ',' : imgUrl += item
+                    })
+                }
+                //文章标题
                 await NewsListTitle.create({
                         title: iterator.title,
                     })
