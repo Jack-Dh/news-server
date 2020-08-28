@@ -76,7 +76,7 @@ const getNewsDataContent = (url) => {
     // #region
     /**
      * @swagger
-     * /config/integration:
+     * /config/hot/integration:
      *   get:
      *     description: 获取热点新闻
      *     tags: [获取数据]
@@ -87,7 +87,7 @@ const getNewsDataContent = (url) => {
      *         description: 获取成功
      */
     // #endregion
-router.get("/integration", async(ctx, next) => {
+router.get("/hot/integration", async(ctx, next) => {
     try {
         let _ = await integration()
         let _insert = await News_.insert(_)

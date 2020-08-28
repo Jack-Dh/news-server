@@ -7,6 +7,12 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: true,
             autoIncrement: true
         },
+        //文章标题
+        title: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            field: 'title'
+        },
         //内容
         content: {
             type: DataTypes.TEXT,

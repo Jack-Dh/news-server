@@ -1,9 +1,10 @@
 import koa from "koa"
 import route from "./routes/index"
-const koaSwagger = require('koa2-swagger-ui')
-const app = new koa()
+import koaSwagger from 'koa2-swagger-ui'
+import swagger from './util/swagger'
 
-const swagger = require('./util/swagger')
+
+const app = new koa()
 
 app.use(swagger.routes(), swagger.allowedMethods())
 app.use(koaSwagger({

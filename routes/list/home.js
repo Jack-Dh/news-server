@@ -2,37 +2,24 @@ const router = require("koa-router")({
     prefix: '/home'
 })
 import news from "../../modules/module_news_list"
-import { root } from "cheerio"
 router.get("/", async(ctx, next) => {
-        ctx.body = "this is listPage"
-    })
-    // #region
-    /**
-     * @swagger
-     * /security/login:
-     *   post:
-     *     description: 用户登入
-     *     tags: [用户鉴权模块]
-     *     produces:
-     *       - application/x-www-form-urlencoded
-     *     parameters:
-     *       - name: password
-     *         description: 用户密码
-     *         in: formData
-     *         required: true
-     *         type: string
-     *       - name: name
-     *         description: 用户名
-     *         in: formData
-     *         required: true
-     *         type: string
-     *     responses:
-     *       200:
-     *         description: 登入成功
-     */
-    // #endregion
-    //查询文章标题
-router.get("/newsTitle", async(ctx, next) => {
+    ctx.body = "this is listPage"
+})
+
+/**
+ * @swagger
+ * /hot/home/newsTitle:
+ *   get:
+ *     description: 获取文章标题
+ *     tags: [文章获取模块]
+ *     produces:
+ *       - application/x-www-form-urlencoded
+ *     responses:
+ *       200:
+ *         description: code:200, data:[]
+ */
+//查询文章标题
+router.get("/hot/newsTitle", async(ctx, next) => {
     try {
         let _ = await news.queryTitle()
         ctx.body = { code: 200, data: _ }
@@ -41,14 +28,32 @@ router.get("/newsTitle", async(ctx, next) => {
     }
 })
 
+/**
+ * @swagger
+ * /hot/newsContent/byId:
+ *   get:
+ *     description: 文章内容
+ *     tags: [文章获取模块]
+ *     produces:
+ *       - application/x-www-form-urlencoded
+ *     parameters:
+ *       - name: id
+ *         description: 文章标题ID
+ *         in: formData
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: code:200,data:[]
+ */
 //查询文章内容
-router.get("/newsContent/byId", async(ctx, next) => {
+router.get("/hot/newsContent/byId", async(ctx, next) => {
     try {
         if (ctx.query.id) {
             let _ = await news.queryContent(ctx.query.id)
             return ctx.body = {
                 code: 200,
-                data: _.length > 0 ? _[0].content : []
+                data: _.length > 0 ? _[0] : []
             }
         }
         return ctx.body = { code: 400, msg: "查询参数不能为空" }
