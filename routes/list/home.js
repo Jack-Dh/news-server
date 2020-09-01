@@ -8,7 +8,7 @@ router.get("/", async(ctx, next) => {
 
 /**
  * @swagger
- * /hot/home/newsTitle:
+ * /home/hot/newsTitle:
  *   get:
  *     description: 获取文章标题
  *     tags: [文章获取模块]
@@ -22,15 +22,16 @@ router.get("/", async(ctx, next) => {
 router.get("/hot/newsTitle", async(ctx, next) => {
         try {
             let _ = await news.queryTitle()
+            console.log(1)
             ctx.body = { code: 200, data: _ }
         } catch (error) {
-            ctx.error(error)
+            throw Error(error)
         }
     })
     // [<br/>id:1,<br/> title: 文章标题,<br/> createdAt:创建时间,<br/> updatedAt:修改时间]
     /**
      * @swagger
-     * /hot/newsContent/byId:
+     * /home/hot/newsContent/byId:
      *   get:
      *     description: 文章内容
      *     tags: [文章获取模块]

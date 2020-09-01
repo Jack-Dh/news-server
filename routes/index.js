@@ -1,4 +1,4 @@
 import list from "./list/index"
 import getNewsData from './config/getNewsData'
-
-export default { getNewsData, list }
+import user from "./user/index"
+export default { getNewsData, list, user }

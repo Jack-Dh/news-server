@@ -15,4 +15,5 @@ app.use(koaSwagger({
 }))
 app.use(route.list.home.routes())
 app.use(route.getNewsData.routes())
+app.use(route.user.login.routes())
 app.listen(5000)
