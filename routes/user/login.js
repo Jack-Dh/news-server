@@ -17,7 +17,7 @@ import axios from "axios"
  *         type: string
  *     responses:
  *       200:
- *         description: code:200<br/>session_key:xxxxxx<br/>openid:xxxxxx<br/>
+ *         description: code:200<br/>session_key:xxxxxxx<br/>openid:xxxxxxx<br/>
  */
 router.get("/login", async(ctx, next) => {
     try {
