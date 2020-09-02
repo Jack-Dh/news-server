@@ -36,7 +36,8 @@ const getNewsDataTitle = () => {
                             })
 
                         //下面类似于jquery的操作，前端的小伙伴们肯定很熟悉啦
-                        $("#syncad_1 h1 a").each((index, element) => {
+                        console.log($("#ad_entry_b2 .list_14 .topli14 a").text())
+                        $("#ad_entry_b2 .list_14 .topli14 a").each((index, element) => {
                             var $text = $(element).text();
                             let url = $(element).attr('href')
                             arr.push({ title: $text, url: url });
