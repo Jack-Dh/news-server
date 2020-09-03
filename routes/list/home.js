@@ -5,6 +5,7 @@ import news from "../../modules/module_news_list"
 router.get("/", async(ctx, next) => {
     ctx.body = "this is listPage"
 })
+import moment from "moment"
 
 /**
  * @swagger
@@ -22,8 +23,14 @@ router.get("/", async(ctx, next) => {
 router.get("/hot/newsTitle", async(ctx, next) => {
         try {
             let _ = await news.queryTitle()
-            console.log(1)
-            ctx.body = { code: 200, data: _ }
+            let d = _.map((item, index) => {
+                return {
+                    id: item.id,
+                    title: item.title,
+                    time: moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
+                }
+            })
+            ctx.body = { code: 200, data: d }
         } catch (error) {
             throw Error(error)
         }
@@ -54,7 +61,7 @@ router.get("/hot/newsContent/byId", async(ctx, next) => {
             let _ = await news.queryContent(ctx.query.id)
             return ctx.body = {
                 code: 200,
-                data: _.length > 0 ? { title: _[0].title, content: _[0].content, imgUrls: _[0].imgUrl.split(",") } : []
+                data: _.length > 0 ? { title: _[0].title, content: _[0].content, imgUrls: _[0].imgUrl.split(","), time: moment(_[0].createdAt).format("YYYY-MM-DD HH:mm:ss") } : []
             }
         }
         return ctx.body = { code: 400, msg: "查询参数不能为空" }
