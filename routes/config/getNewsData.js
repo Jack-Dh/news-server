@@ -36,7 +36,6 @@ const getNewsDataTitle = () => {
                             })
 
                         //下面类似于jquery的操作，前端的小伙伴们肯定很熟悉啦
-                        console.log($("#ad_entry_b2 .list_14 .topli14 a").text())
                         $("#ad_entry_b2 .list_14 .topli14 a").each((index, element) => {
                             var $text = $(element).text();
                             let url = $(element).attr('href')
@@ -70,10 +69,8 @@ const getNewsDataContent = (url) => {
                         $(".img_wrapper img").each((index, element) => {
                             var $text = $(element).attr('src');
                             imgUrl.push($text)
-                            console.log($text)
                         });
                         // 
-                        console.log({ content: content, imgUrl: imgUrl })
                         resolve({ content: content, imgUrl: imgUrl })
                     } else {
                         reject(err)
