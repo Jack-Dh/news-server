@@ -30,7 +30,15 @@ router.get("/hot/newsTitle", async(ctx, next) => {
                     time: moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')
                 }
             })
-            ctx.body = { code: 200, data: d }
+
+            function compare(p) { //这是比较函数
+                return function(m, n) {
+                    var a = m[p];
+                    var b = n[p];
+                    return b - a; //降序
+                }
+            }
+            ctx.body = { code: 200, data: d.sort(compare("id")) }
         } catch (error) {
             throw Error(error)
         }
