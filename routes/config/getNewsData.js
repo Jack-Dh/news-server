@@ -11,6 +11,7 @@ const integration = async() => {
         let title = await getNewsDataTitle()
         let listData = []
         for (const item of title) {
+
             let content = await getNewsDataContent(item.url)
             listData.push({ title: item.title, content: content.content, imgUrl: content.imgUrl })
         }
@@ -35,8 +36,8 @@ const getNewsDataTitle = () => {
                                 decodeEntities: false
                             })
 
-                        //下面类似于jquery的操作，前端的小伙伴们肯定很熟悉啦
-                        $("#ad_entry_b2 .list_14 .topli14 a").each((index, element) => {
+                        //下面类似于jquery的操作
+                        $("#ad_entry_b2 .list_14 li a").each((index, element) => {
                             var $text = $(element).text();
                             let url = $(element).attr('href')
                             arr.push({ title: $text, url: url });
@@ -52,6 +53,7 @@ const getNewsDataTitle = () => {
     //抓取文章内容
 const getNewsDataContent = (url) => {
         return new Promise((resolve, reject) => {
+
             superagent('GET', url, 'utf-8')
                 .end((err, sres) => { //页面获取到的数据
                     if (sres) {
@@ -62,6 +64,7 @@ const getNewsDataContent = (url) => {
                                 decodeEntities: false
                             }) //用cheerio解析页面数据
                             // obj = {};
+                        console.log($("#myflashBox").attr('id'))
                         $("#article p").each((index, element) => {
                             var $text = $(element).text();
                             content += $text
@@ -76,6 +79,8 @@ const getNewsDataContent = (url) => {
                         reject(err)
                     }
                 });
+
+
         })
 
     }
