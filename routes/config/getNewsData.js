@@ -37,7 +37,7 @@ const getNewsDataTitle = () => {
                             })
 
                         //下面类似于jquery的操作
-                        $("#ad_entry_b2 .list_14 li a").each((index, element) => {
+                        $("#ad_entry_b2 ul li a").each((index, element) => {
                             var $text = $(element).text();
                             let url = $(element).attr('href')
                             arr.push({ title: $text, url: url });
